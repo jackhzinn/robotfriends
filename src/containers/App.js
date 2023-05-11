@@ -24,11 +24,12 @@ class App extends React.Component {
         this.setState({searchField: event.target.value});
     }
     render () {
-        const filteredRobots = this.state.robots.filter(robots => {
-            return robots.name.toLowerCase().includes(this.state.searchField.toLowerCase())
+        const {robots, searchField} = this.state;
+        const filteredRobots = robots.filter(robot => {
+            return robot.name.toLowerCase().includes(searchField.toLowerCase())
         });
-        if (this.state.robots.length) {
-            return (
+        return (!!robots.length) ?
+             (
                 <React.StrictMode>
                     <div className="tc">
                         <h1 className="f1 light-green">RoboFriends</h1>
@@ -38,15 +39,9 @@ class App extends React.Component {
                         </Scroll>
                     </div>
                 </React.StrictMode>
-            )
-        } else {
-            return (
-                <React.StrictMode>
-                    <h1>Loading...</h1>
-                </React.StrictMode>
-            )
+            ) : 
+            <h1>Loading...</h1>
         }
     }
-}
 
 export default App;
