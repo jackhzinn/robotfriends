@@ -3,6 +3,7 @@ import React from "react";
 import CardList from "../components/CardList";
 import SearchBox from "../components/SearchBox";
 import Scroll from "../components/Scroll";
+import ErrorBoundary from "../components/ErrorBoundry";
 import './App.css';
 
 class App extends React.Component {
@@ -30,17 +31,17 @@ class App extends React.Component {
         });
         return (!!robots.length) ?
              (
-                <React.StrictMode>
                     <div className="tc">
                         <h1 className="f1 light-green">RoboFriends</h1>
                         <SearchBox searchChange={this.onSearchChange}/>
                         <Scroll>
-                            <CardList robots={filteredRobots} />
+                            <ErrorBoundary>
+                                <CardList robots={filteredRobots} />
+                            </ErrorBoundary>
                         </Scroll>
                     </div>
-                </React.StrictMode>
-            ) : 
-            <h1>Loading...</h1>
+
+            ) : <h1>Loading...</h1>
         }
     }
 
